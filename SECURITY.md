@@ -15,7 +15,7 @@ report it.
 
 Report privately through **GitHub Private Vulnerability Reporting** on this repository:
 
-<https://github.com/zafonyx/zafonxy-local/security/advisories/new>
+<https://github.com/zafonyx/zafonyx-local/security/advisories/new>
 
 That channel is visible only to you and the maintainers. Do not open a public issue, a public
 pull request, or a social-media post describing a suspected vulnerability.
