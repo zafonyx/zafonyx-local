@@ -49,28 +49,29 @@ holds their own data; the vault key never leaves their device.
 | Backup passphrase | No | Never stored | Never |
 | Pairing token | Displayed, not stored | n/a | Never transmitted |
 | Purchase entitlement | Held by the platform store | n/a | Only to the store that issued it |
-| Crash and diagnostic data | Only if the user opts in | Contains no vault data | Yes, to the crash-reporting provider |
+| Crash and diagnostic data | On by default; user may opt out in Settings | Contains no vault data | Yes, to the crash-reporting provider when enabled |
 | Usage analytics | **None collected** | n/a | n/a |
 
-**`DAT-03`** No telemetry or analytics is collected. There is no product analytics SDK, no
+**`DAT-03`** No product analytics is collected. There is no product analytics SDK, no
 behaviour tracking, and no advertising identifier use.
 
-**`DAT-04`** Crash reporting is optional, off unless the user opts in, and excludes vault
-contents, passwords, clipboard contents, PINs, seeds, and metadata. Its payload is limited to
-what is needed to reproduce a crash.
+**`DAT-04`** Crash reporting is optional, on by default, and can be turned off in Settings.
+It excludes vault contents, passwords, clipboard contents, PINs, seeds, and metadata. Its
+payload is limited to what is needed to reproduce a crash.
 
 ---
 
 ## 3. Egress paths
 
-Four paths exist, and each is user-initiated or platform-mandated. Nothing else leaves the device.
+Four paths exist: user-initiated actions, default-enabled crash reporting (Settings opt-out),
+or platform-mandated store purchase flows. Nothing else leaves the device.
 
 | Path | Trigger | Content | Protection |
 |------|---------|---------|------------|
 | Backup file export | User action | Whole sealed container | Sealed under a passphrase-derived key; no metadata in the clear; the user chooses where it goes |
 | LAN transfer or one-way share | User action, per session | Selected categories and their secrets | Authenticated post-quantum session; one-shot delivery; one-way enforced by the sender |
 | Platform purchase | User action | Store transaction, as for any paid app | Handled entirely by the platform store under its own terms |
-| Crash report | Opt-in only | Stack and environment data, no vault data | Provider is the only third party that receives anything |
+| Crash report | Default on; user may opt out | Stack and environment data, no vault data | Provider is the only third party that receives anything |
 
 **`DAT-05`** The device lock PIN is never transmitted, never used as a transfer credential, and
 never stored in readable form. Sharing uses a per-session PIN displayed on the sending device.
@@ -86,7 +87,7 @@ passphrase weakens the container regardless of the KDF.
 | Party | Role | Data received |
 |-------|------|---------------|
 | Apple App Store, Google Play, Microsoft Store | Process the one-time purchase and restore | Transaction and entitlement data, as for any paid app |
-| Optional crash-reporting provider | Receives crash payloads when the user opts in | Technical crash data, never vault data |
+| Optional crash-reporting provider | Receives crash payloads while reporting is enabled (default on; Settings opt-out) | Technical crash data, never vault data |
 | Optional social sign-in providers (Google, Apple) | Only if the user chooses that sign-in for the profile surface | The fact of a sign-in and the basic profile the provider shares |
 
 **`DAT-07`** Social sign-in is optional and only affects the account and profile surface. The
@@ -129,8 +130,8 @@ apply to vault contents:
 
 **`DAT-10`** A request we cannot fulfil is a request about data we do not hold. Where a request
 concerns the limited data we do handle — a purchase record at a platform store, or a crash report
-the user opted into — the fastest route is the platform store or the crash-reporting provider's
-own request process.
+sent while reporting was enabled — the fastest route is the platform store or the
+crash-reporting provider's own request process.
 
 ---
 

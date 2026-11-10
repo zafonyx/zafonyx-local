@@ -79,7 +79,7 @@ guessing.** A wrong answer on a vendor form is worse than a gap.
 | Question | Answer |
 |----------|--------|
 | What personal data do you collect? | None through the product. No telemetry, no analytics, no advertising identifiers — `DAT-03` |
-| Is there telemetry we must disable? | There is none to disable. Crash reporting is opt-in and excludes vault data — `DAT-04` |
+| Is there telemetry we must disable? | There is no product analytics. Crash reporting is on by default and can be turned off in Settings; it excludes vault data — `DAT-04` |
 | How is data encrypted in transit? | Transfer payloads are sealed under an authenticated post-quantum session — `CRY-07` |
 | How is data encrypted at rest? | Per-secret authenticated encryption, plus an encrypted relational store — `CRY-04`, `CRY-11` |
 | Do you support data residency requirements? | There is no server-side data to place in a region |
